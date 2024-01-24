@@ -30,4 +30,9 @@ describe('TasksController', () => {
       completed: false,
     });
   });
+
+  it('should get all tasks', async () => {
+    expect(await controller.findAllTasks()).toEqual([]);
+  });
+
 });
