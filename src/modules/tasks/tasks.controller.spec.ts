@@ -6,10 +6,24 @@ import { TasksService } from './tasks.service';
 describe('TasksController', () => {
   let controller: TasksController;
 
+  const mockRedisClient = {
+    get: jest.fn(),
+    set: jest.fn(),
+    del: jest.fn(),
+    keys: jest.fn().mockResolvedValue([]),
+  };
+  
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [TasksController],
-      providers: [TasksService],
+      providers: [
+        TasksService,
+        {
+          provide: 'REDIS_CLIENT',
+          useValue: mockRedisClient,
+        },
+      ],
     }).compile();
 
     controller = module.get<TasksController>(TasksController);
