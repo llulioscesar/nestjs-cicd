@@ -7,11 +7,12 @@ import { ExpressAdapter } from '@nestjs/platform-express';
 async function bootstrap() {
   const expressApp = express();
   const app = await NestFactory.create(AppModule, new ExpressAdapter(expressApp));
-  await app.init();
 
   app.enableCors({
     origin: '*',
   });
+
+  await app.init();
 
   const server = serverless.createServer(expressApp);
   return server;
