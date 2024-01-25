@@ -9,6 +9,10 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, new ExpressAdapter(expressApp));
   await app.init();
 
+  app.enableCors({
+    origin: '*',
+  });
+
   const server = serverless.createServer(expressApp);
   return server;
 }
